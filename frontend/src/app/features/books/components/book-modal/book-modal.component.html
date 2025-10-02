@@ -1,0 +1,17 @@
+<app-modal
+  [isOpen]="isOpen"
+  [title]="modalTitle"
+  titleIcon="fas fa-book"
+  maxWidth="600px"
+  (modalClose)="onClose()"
+>
+  <app-book-form
+    [book]="book"
+    [authors]="authors"
+    [genres]="genres"
+    [saving]="saving"
+    (formSubmit)="onBookSave($event)"
+    (formCancel)="onClose()"
+  >
+  </app-book-form>
+</app-modal>

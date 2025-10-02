@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <i class="fas fa-book-open"></i>
+    BookCatalog
+  </div>
+  <div class="navbar-actions">
+    <button class="theme-toggle" (click)="toggleTheme()">
+      <i
+        class="fas"
+        [class.fa-sun]="(currentTheme$ | async) === 'light'"
+        [class.fa-moon]="(currentTheme$ | async) === 'dark'"
+      ></i>
+    </button>
+  </div>
+</nav>

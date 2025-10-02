@@ -1,0 +1,93 @@
+<!-- books-page.component.html - VERSÃO ATUALIZADA -->
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<app-main-layout>
+  <div id="books" class="section">
+    <div class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Gerenciar Livros</h2>
+        <div class="section-actions">
+          <input
+            type="text"
+            class="search-bar"
+            placeholder="Buscar livros..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchBooks($event)"
+          />
+          <button class="btn" (click)="openBookModal()">
+            <i class="fas fa-plus"></i>
+            Novo Livro
+          </button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <app-card
+          *ngFor="let book of books.items; trackBy: trackByBookId"
+          [title]="book.title"
+          [subtitle]="book.subtitle"
+          [description]="book.description"
+          iconClass="fas fa-book"
+          iconColor="var(--info-color)"
+          [actions]="getBookActions(book)"
+          [contentTemplate]="bookCardContent"
+          [data]="book"
+        >
+        </app-card>
+      </div>
+
+      <div class="loading" *ngIf="loading && books.items.length === 0">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Carregando livros...</p>
+      </div>
+
+      <div
+        class="no-results"
+        *ngIf="!loading && books.items.length === 0 && !searchTerm"
+      >
+        <i class="fas fa-book-open"></i>
+        <p>Nenhum livro cadastrado ainda</p>
+        <button class="btn" (click)="openBookModal()">
+          <i class="fas fa-plus"></i>
+          Cadastrar primeiro livro
+        </button>
+      </div>
+
+      <div
+        class="no-results"
+        *ngIf="!loading && books.items.length === 0 && searchTerm"
+      >
+        <i class="fas fa-search"></i>
+        <p>Nenhum livro encontrado para "{{ searchTerm }}"</p>
+        <button class="btn btn-secondary" (click)="clearSearch()">
+          Limpar busca
+        </button>
+      </div>
+
+      <app-pagination [pagedData]="books" (pageChanged)="onPageChanged($event)">
+      </app-pagination>
+    </div>
+  </div>
+
+  <ng-template #bookCardContent let-book>
+    <p><strong>Autor:</strong> {{ getAuthorName(book.authorId) }}</p>
+    <p><strong>Gênero:</strong> {{ getGenreName(book.genreId) }}</p>
+    <p *ngIf="book.isbn"><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p *ngIf="book.pageCount"><strong>Páginas:</strong> {{ book.pageCount }}</p>
+    <p *ngIf="book.publisher"><strong>Editora:</strong> {{ book.publisher }}</p>
+    <p *ngIf="book.publishedDate">
+      <strong>Publicado em:</strong> {{ formatDate(book.publishedDate) }}
+    </p>
+  </ng-template>
+</app-main-layout>
+
+<app-book-modal
+  [isOpen]="isBookModalOpen"
+  [book]="selectedBook"
+  [authors]="authors"
+  [genres]="genres"
+  [saving]="savingBook"
+  (modalClose)="onBookModalClose()"
+  (bookSave)="onBookSave($event)"
+>
+</app-book-modal>

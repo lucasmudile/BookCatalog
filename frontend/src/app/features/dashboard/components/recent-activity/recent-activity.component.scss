@@ -1,0 +1,25 @@
+.content-section {
+  margin-top: 24px;
+}
+
+.recent-activity-header {
+  margin-bottom: 16px;
+}
+
+.recent-activity-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.recent-activity-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.recent-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

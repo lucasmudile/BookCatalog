@@ -1,0 +1,36 @@
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  margin: 2px;
+  font-weight: 500;
+  background: var(--hover-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+
+  &.secondary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+  }
+
+  &.success {
+    color: var(--success-color);
+    border-color: var(--success-color);
+  }
+
+  &.warning {
+    color: var(--warning-color);
+    border-color: var(--warning-color);
+  }
+
+  &.info {
+    color: var(--info-color);
+    border-color: var(--info-color);
+  }
+
+  &.danger {
+    color: var(--danger-color);
+    border-color: var(--danger-color);
+  }
+}

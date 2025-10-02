@@ -1,0 +1,110 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<app-main-layout>
+  <div id="genres" class="section">
+    <div class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Gerenciar Gêneros</h2>
+        <div class="section-actions">
+          <input
+            type="text"
+            class="search-bar"
+            placeholder="Buscar gêneros..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchGenres($event)"
+          />
+          <button class="btn" (click)="openGenreModal()">
+            <i class="fas fa-plus"></i>
+            Novo Gênero
+          </button>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>{{ error }}</p>
+        <button class="btn btn-secondary" (click)="loadGenres(genres.page)">
+          Tentar novamente
+        </button>
+      </div>
+
+      <div class="grid">
+        <app-card
+          *ngFor="let genre of genres.items; trackBy: trackByGenreId"
+          [title]="genre.name"
+          [description]="genre.description"
+          iconClass="fas fa-tags"
+          iconColor="var(--warning-color)"
+          [actions]="getGenreActions(genre)"
+          [contentTemplate]="genreCardContent"
+          [data]="genre"
+        >
+        </app-card>
+      </div>
+
+      <div class="loading" *ngIf="loading && genres.items.length === 0">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Carregando gêneros...</p>
+      </div>
+
+      <div
+        class="no-results"
+        *ngIf="!loading && genres.items.length === 0 && !searchTerm && !error"
+      >
+        <i class="fas fa-tags"></i>
+        <p>Nenhum gênero cadastrado ainda</p>
+        <button class="btn" (click)="openGenreModal()">
+          <i class="fas fa-plus"></i>
+          Cadastrar primeiro gênero
+        </button>
+      </div>
+
+      <div
+        class="no-results"
+        *ngIf="!loading && genres.items.length === 0 && searchTerm && !error"
+      >
+        <i class="fas fa-search"></i>
+        <p>Nenhum gênero encontrado para "{{ searchTerm }}"</p>
+        <button class="btn btn-secondary" (click)="clearSearch()">
+          Limpar busca
+        </button>
+      </div>
+
+      <app-pagination
+        [pagedData]="genres"
+        (pageChanged)="onPageChanged($event)"
+        *ngIf="!loading && genres.items.length > 0"
+      >
+      </app-pagination>
+    </div>
+  </div>
+
+  <ng-template #genreCardContent let-genre>
+    <p><strong>Livros neste gênero:</strong> {{ genre.books?.length || 0 }}</p>
+
+    <div *ngIf="genre.books && genre.books.length > 0" style="margin-top: 8px">
+      <app-tag
+        *ngFor="let book of genre.books; trackBy: trackByBookTitle"
+        variant="warning"
+      >
+        {{ book.title }}
+      </app-tag>
+    </div>
+
+    <div
+      *ngIf="!genre.books || genre.books.length === 0"
+      style="margin-top: 8px"
+    >
+      <app-tag variant="default">Nenhum livro cadastrado</app-tag>
+    </div>
+  </ng-template>
+</app-main-layout>
+
+<app-genre-modal
+  [isOpen]="isGenreModalOpen"
+  [genre]="selectedGenre"
+  [saving]="savingGenre"
+  (modalClose)="onGenreModalClose()"
+  (genreSave)="onGenreSave($event)"
+>
+</app-genre-modal>

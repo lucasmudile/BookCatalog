@@ -1,0 +1,25 @@
+<div class="dashboard-cards">
+  <app-dashboard-card
+    icon="fas fa-book"
+    [count]="totalBooks"
+    label="Total de Livros"
+    cardType="books"
+  >
+  </app-dashboard-card>
+
+  <app-dashboard-card
+    icon="fas fa-user-edit"
+    [count]="totalAuthors"
+    label="Total de Autores"
+    cardType="authors"
+  >
+  </app-dashboard-card>
+
+  <app-dashboard-card
+    icon="fas fa-tags"
+    [count]="totalGenres"
+    label="Total de Gêneros"
+    cardType="genres"
+  >
+  </app-dashboard-card>
+</div>

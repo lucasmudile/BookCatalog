@@ -1,0 +1,62 @@
+services:
+  catalogdb:
+    image: postgres
+    container_name: catalogdb
+    environment:
+      POSTGRES_DB: BookCatalogDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d/
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d BookCatalogDb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cluster-network
+
+  catalog.api:
+    build:
+      context: ./backend
+      dockerfile: src/BookCatalog.API/Dockerfile
+      target: final
+    container_name: catalog-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=BookCatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      catalogdb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - cluster-network
+
+  angular-app:  
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: angular-app
+    environment:
+       API_URL: http://localhost:8080 
+    ports:
+      - "4200:4200"
+    depends_on:
+      - catalog.api
+    networks:
+      - cluster-network
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  cluster-network:
+    driver: bridge

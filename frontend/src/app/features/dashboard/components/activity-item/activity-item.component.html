@@ -1,0 +1,10 @@
+<div class="activity-item" [ngClass]="'activity-' + activityType">
+  <div class="activity-icon">
+    <i [class]="icon" [style.color]="iconColor"></i>
+  </div>
+  <div class="activity-content">
+    <h4 class="activity-title">{{ title }}</h4>
+    <p class="activity-description">{{ description }}</p>
+    <!-- <span class="activity-timestamp">{{ timestamp }}</span> -->
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<app-main-layout>
+  <div id="dashboard" class="section active">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Dashboard</h1>
+      <button
+        class="btn btn-secondary"
+        (click)="refreshDashboard()"
+        [disabled]="dashboardStats.loading"
+        *ngIf="!dashboardStats.loading"
+      >
+        <i class="fas fa-sync-alt"></i>
+        Atualizar
+      </button>
+    </div>
+
+    <div class="loading-dashboard" *ngIf="dashboardStats.loading">
+      <div class="loading-card">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Carregando dados do dashboard...</p>
+      </div>
+    </div>
+
+    <div
+      class="error-dashboard"
+      *ngIf="dashboardStats.error && !dashboardStats.loading"
+    >
+      <div class="error-card">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>Erro ao carregar dashboard</h3>
+        <p>{{ dashboardStats.error }}</p>
+        <button class="btn btn-primary" (click)="refreshDashboard()">
+          <i class="fas fa-retry"></i>
+          Tentar novamente
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="dashboard-content"
+      *ngIf="!dashboardStats.loading && !dashboardStats.error"
+    >
+      <app-dashboard-cards
+        [totalBooks]="dashboardStats.totalBooks"
+        [totalAuthors]="dashboardStats.totalAuthors"
+        [totalGenres]="dashboardStats.totalGenres"
+      ></app-dashboard-cards>
+
+      <app-recent-activity
+        [activities]="recentActivities"
+      ></app-recent-activity>
+    </div>
+  </div>
+</app-main-layout>

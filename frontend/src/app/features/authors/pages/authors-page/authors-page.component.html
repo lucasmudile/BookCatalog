@@ -1,0 +1,117 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<app-main-layout>
+  <div id="authors" class="section">
+    <div class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Gerenciar Autores</h2>
+        <div class="section-actions">
+          <input
+            type="text"
+            class="search-bar"
+            placeholder="Buscar autores..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchAuthors($event)"
+          />
+          <button class="btn" (click)="openAuthorModal()">
+            <i class="fas fa-plus"></i>
+            Novo Autor
+          </button>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>{{ error }}</p>
+        <button class="btn btn-secondary" (click)="loadAuthors(authors.page)">
+          Tentar novamente
+        </button>
+      </div>
+
+      <div class="grid">
+        <app-card
+          *ngFor="let author of authors.items; trackBy: trackByAuthorId"
+          [title]="author.firstName + ' ' + author.lastName"
+          [description]="author.biography"
+          iconClass="fas fa-user-edit"
+          iconColor="var(--success-color)"
+          [actions]="getAuthorActions(author)"
+          [contentTemplate]="authorCardContent"
+          [data]="author"
+        >
+        </app-card>
+      </div>
+
+      <div class="loading" *ngIf="loading && authors.items.length === 0">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Carregando autores...</p>
+      </div>
+
+      <div
+        class="no-results"
+        *ngIf="!loading && authors.items.length === 0 && !searchTerm && !error"
+      >
+        <i class="fas fa-user-edit"></i>
+        <p>Nenhum autor cadastrado ainda</p>
+        <button class="btn" (click)="openAuthorModal()">
+          <i class="fas fa-plus"></i>
+          Cadastrar primeiro autor
+        </button>
+      </div>
+
+      <div
+        class="no-results"
+        *ngIf="!loading && authors.items.length === 0 && searchTerm && !error"
+      >
+        <i class="fas fa-search"></i>
+        <p>Nenhum autor encontrado para "{{ searchTerm }}"</p>
+        <button class="btn btn-secondary" (click)="clearSearch()">
+          Limpar busca
+        </button>
+      </div>
+
+      <app-pagination
+        [pagedData]="authors"
+        (pageChanged)="onPageChanged($event)"
+        *ngIf="!loading && authors.items.length > 0"
+      >
+      </app-pagination>
+    </div>
+  </div>
+
+  <ng-template #authorCardContent let-author>
+    <p *ngIf="author.dateOfBirth">
+      <strong>Nascimento:</strong> {{ formatDate(author.dateOfBirth) }}
+    </p>
+    <p *ngIf="author.dateOfDeath">
+      <strong>Falecimento:</strong> {{ formatDate(author.dateOfDeath) }}
+    </p>
+    <p><strong>Livros publicados:</strong> {{ author.books?.length || 0 }}</p>
+    <div
+      *ngIf="author.books && author.books.length > 0"
+      style="margin-top: 8px"
+    >
+      <app-tag
+        *ngFor="let book of author.books; trackBy: trackByBookTitle"
+        variant="success"
+      >
+        {{ book.title }}
+      </app-tag>
+    </div>
+    <div
+      *ngIf="!author.books || author.books.length === 0"
+      style="margin-top: 8px"
+    >
+      <app-tag variant="default">Nenhum livro publicado</app-tag>
+    </div>
+  </ng-template>
+</app-main-layout>
+
+<app-author-modal
+  [isOpen]="isAuthorModalOpen"
+  [author]="selectedAuthor"
+  [saving]="savingAuthor"
+  (modalClose)="onAuthorModalClose()"
+  (authorSave)="onAuthorSave($event)"
+>
+</app-author-modal>

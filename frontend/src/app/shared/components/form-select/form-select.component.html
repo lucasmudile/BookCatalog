@@ -1,0 +1,26 @@
+<div class="form-group">
+  <label *ngIf="label" [for]="selectId">
+    {{ label }}
+    <span *ngIf="required" class="required">*</span>
+  </label>
+
+  <select
+    [id]="selectId"
+    [disabled]="disabled"
+    [value]="value || ''"
+    (change)="onChange($event)"
+    (blur)="onBlur()"
+    class="form-control"
+    [class.error]="hasError"
+  >
+    <option value="" *ngIf="placeholder">{{ placeholder }}</option>
+    <option *ngFor="let option of options" [value]="option.value">
+      {{ option.label }}
+    </option>
+  </select>
+
+  <div *ngIf="hasError && errorMessage" class="error-message">
+    <i class="fas fa-exclamation-triangle"></i>
+    {{ errorMessage }}
+  </div>
+</div>

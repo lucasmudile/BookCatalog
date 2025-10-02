@@ -1,0 +1,15 @@
+<app-modal
+  [isOpen]="isOpen"
+  [title]="modalTitle"
+  titleIcon="fas fa-user-edit"
+  maxWidth="500px"
+  (modalClose)="onClose()"
+>
+  <app-author-form
+    [author]="author"
+    [saving]="saving"
+    (formSubmit)="onAuthorSave($event)"
+    (formCancel)="onClose()"
+  >
+  </app-author-form>
+</app-modal>

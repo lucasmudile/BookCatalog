@@ -1,0 +1,48 @@
+<nav class="mobile-nav" *ngIf="isMobile">
+  <div class="mobile-nav-content">
+    <a
+      class="mobile-nav-item"
+      [class.active]="isActiveRoute('')"
+      (click)="navigateTo('')"
+    >
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a
+      class="mobile-nav-item"
+      [class.active]="isActiveRoute('/books')"
+      (click)="navigateTo('/books')"
+    >
+      <i class="fas fa-book"></i>
+      <span>Livros</span>
+    </a>
+
+    <a
+      class="mobile-nav-item"
+      [class.active]="isActiveRoute('/authors')"
+      (click)="navigateTo('/authors')"
+    >
+      <i class="fas fa-user-edit"></i>
+      <span>Autores</span>
+    </a>
+
+    <a
+      class="mobile-nav-item"
+      [class.active]="isActiveRoute('/genres')"
+      (click)="navigateTo('/genres')"
+    >
+      <i class="fas fa-tags"></i>
+      <span>Gêneros</span>
+    </a>
+  </div>
+</nav>
+
+<main
+  class="main-content"
+  id="mainContent"
+  [class.expanded]="isCollapsed"
+  [class.mobile]="isMobile"
+>
+  <ng-content></ng-content>
+</main>

@@ -1,0 +1,67 @@
+<form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <app-form-input
+      label="Nome"
+      placeholder="Digite o nome"
+      [required]="true"
+      [hasError]="isFieldInvalid('firstName')"
+      [errorMessage]="getFieldErrorMessage('firstName')"
+      formControlName="firstName"
+    >
+    </app-form-input>
+
+    <app-form-input
+      label="Sobrenome"
+      placeholder="Digite o sobrenome"
+      [required]="true"
+      [hasError]="isFieldInvalid('lastName')"
+      [errorMessage]="getFieldErrorMessage('lastName')"
+      formControlName="lastName"
+    >
+    </app-form-input>
+  </div>
+
+  <div class="form-row">
+    <app-form-input
+      label="Data de Nascimento"
+      type="date"
+      [hasError]="isFieldInvalid('dateOfBirth')"
+      [errorMessage]="getFieldErrorMessage('dateOfBirth')"
+      formControlName="dateOfBirth"
+    >
+    </app-form-input>
+
+    <app-form-input
+      label="Data de Falecimento"
+      type="date"
+      [hasError]="isFieldInvalid('dateOfDeath')"
+      [errorMessage]="getFieldErrorMessage('dateOfDeath')"
+      formControlName="dateOfDeath"
+    >
+    </app-form-input>
+  </div>
+
+  <app-form-textarea
+    label="Biografia"
+    placeholder="Escreva sobre o autor..."
+    [rows]="4"
+    [hasError]="isFieldInvalid('biography')"
+    [errorMessage]="getFieldErrorMessage('biography')"
+    formControlName="biography"
+  >
+  </app-form-textarea>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      <i class="fas fa-times"></i>
+      Cancelar
+    </button>
+    <button type="submit" class="btn" [disabled]="authorForm.invalid || saving">
+      <i class="fas fa-spinner fa-spin" *ngIf="saving; else saveIcon"></i>
+      <ng-template #saveIcon>
+        <i class="fas fa-save"></i>
+      </ng-template>
+      {{ saving ? "Salvando..." : "Salvar Autor" }}
+    </button>
+  </div>
+</form>

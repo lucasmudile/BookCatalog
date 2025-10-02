@@ -1,0 +1,33 @@
+<div class="card">
+  <h3>
+    <i [class]="iconClass" [style.color]="iconColor"></i>
+    {{ title }}
+  </h3>
+
+  <p *ngIf="subtitle" style="font-style: italic; margin-bottom: 8px">
+    {{ subtitle }}
+  </p>
+
+  <p *ngIf="description" style="margin-bottom: 12px; line-height: 1.6">
+    {{ description }}
+  </p>
+
+  <ng-content></ng-content>
+
+  <div *ngIf="contentTemplate">
+    <ng-container
+      *ngTemplateOutlet="contentTemplate; context: { $implicit: data }"
+    ></ng-container>
+  </div>
+
+  <div class="card-actions" *ngIf="actions && actions.length > 0">
+    <button
+      *ngFor="let action of actions"
+      [class]="'btn ' + action.cssClass + ' btn-small'"
+      (click)="action.action()"
+    >
+      <i [class]="action.icon"></i>
+      {{ action.label }}
+    </button>
+  </div>
+</div>

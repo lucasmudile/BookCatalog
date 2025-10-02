@@ -1,0 +1,275 @@
+// modal.component.scss
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  align-items: center;
+  justify-content: center;
+
+  &.show {
+    display: flex;
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  margin: 5% auto;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-20px) scale(0.95);
+  transition: transform 0.3s ease;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  .modal.show & {
+    transform: translateY(0) scale(1);
+  }
+
+  // Focus outline para acessibilidade
+  &:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
+.modal-header {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+
+  .modal-title {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.modal-body {
+  padding: 0 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+
+  // Scrollbar customizada
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--hover-bg);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 1.5rem;
+
+  > div {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    min-width: 100px;
+  }
+}
+
+.close {
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 400;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  line-height: 1;
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--hover-bg);
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
+// Variações de tamanho
+.modal-content {
+  &.modal-sm {
+    max-width: 320px;
+  }
+
+  &.modal-md {
+    max-width: 480px;
+  }
+
+  &.modal-lg {
+    max-width: 640px;
+  }
+
+  &.modal-xl {
+    max-width: 800px;
+  }
+
+  &.modal-full {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+}
+
+// Animações
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px) scale(0.95);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  to {
+    transform: translateY(-50px) scale(0.95);
+  }
+}
+
+// Estados de entrada e saída
+.modal {
+  &.show {
+    animation: modalFadeIn 0.3s ease;
+
+    .modal-content {
+      animation: modalSlideIn 0.3s ease;
+    }
+  }
+
+  &.closing {
+    animation: modalFadeOut 0.3s ease;
+
+    .modal-content {
+      animation: modalSlideOut 0.3s ease;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    margin: 2% auto;
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .modal-footer > div {
+    flex-direction: column-reverse;
+
+    .btn {
+      width: 100%;
+      min-width: auto;
+    }
+  }
+}
+
+// Estado de carregamento no modal
+.modal-loading {
+  .modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+
+    .loading-spinner {
+      color: var(--primary-color);
+      font-size: 2rem;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

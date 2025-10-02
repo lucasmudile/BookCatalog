@@ -1,0 +1,107 @@
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <app-form-input
+    label="Título"
+    placeholder="Digite o título do livro"
+    [required]="true"
+    [hasError]="isFieldInvalid('title')"
+    [errorMessage]="getFieldErrorMessage('title')"
+    formControlName="title"
+  >
+  </app-form-input>
+
+  <app-form-input
+    label="Subtítulo"
+    placeholder="Digite o subtítulo (opcional)"
+    [hasError]="isFieldInvalid('subtitle')"
+    [errorMessage]="getFieldErrorMessage('subtitle')"
+    formControlName="subtitle"
+  >
+  </app-form-input>
+
+  <app-form-textarea
+    label="Descrição"
+    placeholder="Descreva o livro..."
+    [rows]="3"
+    [hasError]="isFieldInvalid('description')"
+    [errorMessage]="getFieldErrorMessage('description')"
+    formControlName="description"
+  >
+  </app-form-textarea>
+
+  <app-form-select
+    label="Autor"
+    placeholder="Selecione um autor"
+    [required]="true"
+    [options]="authorOptions"
+    [hasError]="isFieldInvalid('authorId')"
+    [errorMessage]="getFieldErrorMessage('authorId')"
+    formControlName="authorId"
+  >
+  </app-form-select>
+
+  <app-form-select
+    label="Gênero"
+    placeholder="Selecione um gênero"
+    [required]="true"
+    [options]="genreOptions"
+    [hasError]="isFieldInvalid('genreId')"
+    [errorMessage]="getFieldErrorMessage('genreId')"
+    formControlName="genreId"
+  >
+  </app-form-select>
+
+  <div class="form-row">
+    <app-form-input
+      label="ISBN"
+      placeholder="978-85-01-00000-0"
+      [hasError]="isFieldInvalid('isbn')"
+      [errorMessage]="getFieldErrorMessage('isbn')"
+      formControlName="isbn"
+    >
+    </app-form-input>
+
+    <app-form-input
+      label="Páginas"
+      type="number"
+      placeholder="0"
+      [hasError]="isFieldInvalid('pageCount')"
+      [errorMessage]="getFieldErrorMessage('pageCount')"
+      formControlName="pageCount"
+    >
+    </app-form-input>
+  </div>
+
+  <div class="form-row">
+    <app-form-input
+      label="Editora"
+      placeholder="Nome da editora"
+      [hasError]="isFieldInvalid('publisher')"
+      [errorMessage]="getFieldErrorMessage('publisher')"
+      formControlName="publisher"
+    >
+    </app-form-input>
+
+    <app-form-input
+      label="Data de Publicação"
+      type="date"
+      [hasError]="isFieldInvalid('publishedDate')"
+      [errorMessage]="getFieldErrorMessage('publishedDate')"
+      formControlName="publishedDate"
+    >
+    </app-form-input>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      <i class="fas fa-times"></i>
+      Cancelar
+    </button>
+    <button type="submit" class="btn" [disabled]="bookForm.invalid || saving">
+      <i class="fas fa-spinner fa-spin" *ngIf="saving; else saveIcon"></i>
+      <ng-template #saveIcon>
+        <i class="fas fa-save"></i>
+      </ng-template>
+      {{ saving ? "Salvando..." : "Salvar Livro" }}
+    </button>
+  </div>
+</form>

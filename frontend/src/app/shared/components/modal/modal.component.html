@@ -1,0 +1,76 @@
+<div
+  class="modal"
+  [class.show]="isOpen"
+  (click)="onBackdropClick($event)"
+  *ngIf="isOpen || isClosing"
+>
+  <div class="modal-content" [style.max-width]="maxWidth">
+    <!-- Header -->
+    <div class="modal-header" *ngIf="title">
+      <h2 class="modal-title">
+        <i [class]="titleIcon" *ngIf="titleIcon"></i>
+        {{ title }}
+      </h2>
+      <button
+        class="close"
+        (click)="close()"
+        [attr.aria-label]="'Fechar modal'"
+        type="button"
+      >
+        &times;
+      </button>
+    </div>
+
+    <!-- Header customizado via template -->
+    <div class="modal-header" *ngIf="headerTemplate && !title">
+      <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+      <button
+        class="close"
+        (click)="close()"
+        [attr.aria-label]="'Fechar modal'"
+        type="button"
+      >
+        &times;
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+      <!-- Conteúdo via projection -->
+      <ng-content></ng-content>
+
+      <!-- Conteúdo via template -->
+      <ng-container *ngIf="bodyTemplate">
+        <ng-container
+          *ngTemplateOutlet="bodyTemplate; context: { $implicit: data }"
+        ></ng-container>
+      </ng-container>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer" *ngIf="footerTemplate || showDefaultFooter">
+      <ng-container *ngIf="footerTemplate">
+        <ng-container
+          *ngTemplateOutlet="footerTemplate; context: { $implicit: data }"
+        ></ng-container>
+      </ng-container>
+
+      <!-- Footer padrão -->
+      <div *ngIf="showDefaultFooter && !footerTemplate">
+        <button class="btn btn-secondary" (click)="close()" type="button">
+          <i class="fas fa-times"></i>
+          {{ cancelText }}
+        </button>
+        <button
+          class="btn"
+          (click)="confirm()"
+          type="button"
+          [disabled]="confirmDisabled"
+        >
+          <i [class]="confirmIcon"></i>
+          {{ confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

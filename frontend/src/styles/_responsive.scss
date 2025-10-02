@@ -1,0 +1,34 @@
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .navbar {
+    padding: 0 1rem;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}

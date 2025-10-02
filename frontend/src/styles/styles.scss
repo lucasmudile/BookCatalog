@@ -1,0 +1,56 @@
+@import "ngx-toastr/toastr";
+
+@import "./abstracts/variables";
+@import "./abstracts/mixins";
+@import "./abstracts/functions";
+
+@import "./base/reset";
+@import "./base/typography";
+@import "./base/utilities";
+
+@import "./components/buttons";
+@import "./components/cards";
+@import "./components/forms";
+@import "./components/modal";
+
+@import "./layout/grid";
+@import "./layout/containers";
+
+@import "./themes/dark-theme";
+@import "./themes/light-theme";
+
+@import "./responsive";
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--dark-bg);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hover-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color);
+}
+
+.toast-success {
+  background-color: var(--primary-color) !important;
+}
+
+.toast-success .toast-progress {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}

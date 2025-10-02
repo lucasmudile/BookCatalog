@@ -1,0 +1,35 @@
+<form [formGroup]="genreForm" (ngSubmit)="onSubmit()">
+  <app-form-input
+    label="Nome do Gênero"
+    placeholder="Digite o nome do gênero"
+    [required]="true"
+    [hasError]="isFieldInvalid('name')"
+    [errorMessage]="getFieldErrorMessage('name')"
+    formControlName="name"
+  >
+  </app-form-input>
+
+  <app-form-textarea
+    label="Descrição"
+    placeholder="Descreva o gênero..."
+    [rows]="3"
+    [hasError]="isFieldInvalid('description')"
+    [errorMessage]="getFieldErrorMessage('description')"
+    formControlName="description"
+  >
+  </app-form-textarea>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      <i class="fas fa-times"></i>
+      Cancelar
+    </button>
+    <button type="submit" class="btn" [disabled]="genreForm.invalid || saving">
+      <i class="fas fa-spinner fa-spin" *ngIf="saving; else saveIcon"></i>
+      <ng-template #saveIcon>
+        <i class="fas fa-save"></i>
+      </ng-template>
+      {{ saving ? "Salvando..." : "Salvar Gênero" }}
+    </button>
+  </div>
+</form>

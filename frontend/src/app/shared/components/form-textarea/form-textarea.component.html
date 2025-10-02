@@ -1,0 +1,24 @@
+<div class="form-group">
+  <label *ngIf="label" [for]="textareaId">
+    {{ label }}
+    <span *ngIf="required" class="required">*</span>
+  </label>
+
+  <textarea
+    [id]="textareaId"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [rows]="rows"
+    [value]="value || ''"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    class="form-control"
+    [class.error]="hasError"
+  >
+  </textarea>
+
+  <div *ngIf="hasError && errorMessage" class="error-message">
+    <i class="fas fa-exclamation-triangle"></i>
+    {{ errorMessage }}
+  </div>
+</div>

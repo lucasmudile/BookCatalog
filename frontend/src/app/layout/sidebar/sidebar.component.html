@@ -1,0 +1,50 @@
+<aside
+  class="sidebar"
+  id="sidebar"
+  [class.collapsed]="isCollapsed"
+  [class.mobile]="isMobile"
+  *ngIf="!isMobile"
+>
+  <ul class="sidebar-menu">
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [class.active]="isActiveRoute('')"
+        (click)="navigateTo('')"
+      >
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [class.active]="isActiveRoute('/books')"
+        (click)="navigateTo('/books')"
+      >
+        <i class="fas fa-book"></i>
+        <span>Livros</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [class.active]="isActiveRoute('/authors')"
+        (click)="navigateTo('/authors')"
+      >
+        <i class="fas fa-user-edit"></i>
+        <span>Autores</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [class.active]="isActiveRoute('/genres')"
+        (click)="navigateTo('/genres')"
+      >
+        <i class="fas fa-tags"></i>
+        <span>Gêneros</span>
+      </a>
+    </li>
+  </ul>
+</aside>

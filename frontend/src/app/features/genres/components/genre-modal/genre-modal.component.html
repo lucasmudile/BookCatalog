@@ -1,0 +1,15 @@
+<app-modal
+  [isOpen]="isOpen"
+  [title]="modalTitle"
+  titleIcon="fas fa-tags"
+  maxWidth="450px"
+  (modalClose)="onClose()"
+>
+  <app-genre-form
+    [genre]="genre"
+    [saving]="saving"
+    (formSubmit)="onGenreSave($event)"
+    (formCancel)="onClose()"
+  >
+  </app-genre-form>
+</app-modal>

@@ -1,0 +1,23 @@
+<div class="pagination" *ngIf="pagedData && pagedData.totalPages > 1">
+  <button
+    (click)="changePage(pagedData.page - 1)"
+    [disabled]="!pagedData.hasPreviousPage"
+  >
+    <i class="fas fa-chevron-left"></i>
+  </button>
+
+  <button
+    *ngFor="let pageNum of getPageNumbers()"
+    (click)="changePage(pageNum)"
+    [class.active]="pageNum === pagedData.page"
+  >
+    {{ pageNum }}
+  </button>
+
+  <button
+    (click)="changePage(pagedData.page + 1)"
+    [disabled]="!pagedData.hasNextPage"
+  >
+    <i class="fas fa-chevron-right"></i>
+  </button>
+</div>

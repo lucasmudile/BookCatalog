@@ -1,0 +1,174 @@
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+
+  i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+  }
+
+  p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+
+  i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .btn {
+    margin-top: 0.5rem;
+  }
+}
+
+.error-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--danger-color);
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  border-radius: 12px;
+  margin: 1rem 0;
+
+  i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+
+  &__icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.3;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  &__action {
+    margin-top: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading i.fa-spin {
+  animation: spin 1s linear infinite;
+}
+
+.card,
+.empty-state,
+.loading,
+.no-results {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.skeleton-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  animation: pulse 1.5s ease-in-out infinite alternate;
+
+  &__title {
+    height: 1.5rem;
+    background: var(--hover-bg);
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+
+  &__line {
+    height: 1rem;
+    background: var(--hover-bg);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+
+    &--short {
+      width: 60%;
+    }
+
+    &--medium {
+      width: 80%;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 1rem;
+
+    .skeleton-button {
+      width: 80px;
+      height: 32px;
+      background: var(--hover-bg);
+      border-radius: 6px;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

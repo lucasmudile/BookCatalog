@@ -1,0 +1,24 @@
+<div class="content-section">
+  <div class="recent-activity-header">
+    <h2 class="recent-activity-title">Atividade Recente</h2>
+    <p class="recent-activity-subtitle">Últimas adições ao catálogo</p>
+  </div>
+
+  <div class="no-activities" *ngIf="activities.length === 0">
+    <i class="fas fa-clock"></i>
+    <p>Nenhuma atividade recente encontrada</p>
+  </div>
+
+  <div class="recent-activity-list" *ngIf="activities.length > 0">
+    <app-activity-item
+      *ngFor="let activity of activities; trackBy: trackByActivityId"
+      [title]="activity.title"
+      [description]="activity.description"
+      [timestamp]="formatTimestamp(activity.timestamp)"
+      [icon]="activity.icon"
+      [iconColor]="getIconColor(activity.type)"
+      [activityType]="activity.type"
+    >
+    </app-activity-item>
+  </div>
+</div>
