@@ -301,6 +301,17 @@ Desafio-Ajaxti/
 ├── docker-compose.yml               # Docker orchestration
 └── README.md
 
+
+
+<pre> ┌─────────────────┐ HTTP/REST ┌─────────────────┐ Entity Framework ┌─────────────────┐ │ Angular SPA │ ◄──────────────► │ .NET Web API │ ◄─────────────────────► │ PostgreSQL │ │ │ │ │ │ │ │ - Components │ │ - Controllers │ │ - Tables │ │ - Services │ │ - Business Logic│ │ - Relationships │ │ - Routing │ │ - Data Access │ │ - Constraints │ └─────────────────┘ └─────────────────┘ └─────────────────┘ </pre>
+
+
+
+
+<pre> Desafio-Ajaxti/ ├── backend/ │ ├── src/ │ │ ├── BookCatalog.API/ # Main API │ │ ├── BookCatalog.Application/ # Application logic │ │ ├── BookCatalog.Domain/ # Domain entities │ │ ├── BookCatalog.Infrastructure/ # Data access │ │ └── BookCatalog.Shared/ # Shared utilities │ └── Dockerfile ├── frontend/ │ ├── src/ │ │ ├── app/ # Angular components │ │ ├── environments/ # Environment configs │ │ └── assets/ # Static assets │ ├── Dockerfile │ └── package.json ├── docker-compose.yml # Docker orchestration └── README.md </pre>
+
+
+
 # 💡 Design Decisions
 # Why Angular?
 
